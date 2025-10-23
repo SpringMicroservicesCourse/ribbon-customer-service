@@ -29,22 +29,20 @@ public class CustomerRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        // 1. 顯示服務實例
         showServiceInstances();
         readMenu();
         Long id = orderCoffee();
         queryOrder(id);
     }
 
-    // 1. 顯示服務實例
-    private void showServiceInstances() {
+    
+private void showServiceInstances() {
         log.info("DiscoveryClient: {}", discoveryClient.getClass().getName());
         discoveryClient.getInstances("waiter-service").forEach(s -> {
             log.info("Host: {}, Port: {}", s.getHost(), s.getPort());
         });
     }
-
-    // 2. 讀取咖啡列表
+    
     private void readMenu() {
         ParameterizedTypeReference<List<Coffee>> ptr =
                 new ParameterizedTypeReference<List<Coffee>>() {};
@@ -55,7 +53,7 @@ public class CustomerRunner implements ApplicationRunner {
 
     private Long orderCoffee() {
         NewOrderRequest orderRequest = NewOrderRequest.builder()
-                .customer("Li Lei")
+                .customer("Ray Chu")
                 .items(Arrays.asList("capuccino"))
                 .build();
         RequestEntity<NewOrderRequest> request = RequestEntity
